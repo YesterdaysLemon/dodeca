@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Sitemap: https://dodeca.alirezaafshan.com/sitemap.xml

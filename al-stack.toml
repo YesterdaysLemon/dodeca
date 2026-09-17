@@ -1,0 +1,15 @@
+# Managed by al-stack. Keep extended prose in AGENTS.md.
+"schema" = 1
+
+["project"]
+"id" = "b37f0bf1-1cae-4a18-b6f1-131367913281"
+"name" = "dodeca"
+"status" = "experimental"
+"profile" = "web"
+"purpose" = "A bright 3D habitat comparing twelve competing drives with a single decision maker: Dodeca and Point."
+
+["stack"]
+"version" = "0.1.0"
+"revision" = "11eac15f6a8a0dc76f06ef97c7c3a27c7f668e0a+dirty.6fb7933644af4e9c"
+
+["commands"]

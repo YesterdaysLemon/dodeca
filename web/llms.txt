@@ -1,0 +1,11 @@
+# Dodeca & Point
+
+A procedural Three.js habitat with two simulated inhabitants. Dodeca combines twelve independent action/pressure judgments from Jev; Point requests a single holistic Jev action. Both use the same motor rules and replenishing resource field. Local preview uses explicit numeric rules and is labeled separately.
+
+- Canonical: https://dodeca.alirezaafshan.com/
+- Source and evidence: https://github.com/YesterdaysLemon/dodeca
+- Home: https://alirezaafshan.com/
+- Health and exact release: /healthz
+- Author: Alireza Afshan
+
+Drives are a controller architecture and analogy, not biological modules or a claim about consciousness. The small authored-state pilot is not a general benchmark. Live requests are bounded; API credentials remain server-side. The app does not provide an arbitrary prompt proxy. No user accounts or external personal data are required.

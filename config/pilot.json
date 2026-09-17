@@ -1,0 +1,21 @@
+{
+  "experiment": "dodeca-pilot-01",
+  "version": 1,
+  "model": "jev-latest",
+  "maxRequests": 20,
+  "maxInputTokens": 300000,
+  "inertia": 0,
+  "shuffleOffset": 5,
+  "controlGate": 0.75,
+  "conditions": ["committee", "single", "rules", "shuffled"],
+  "cases": [
+    {"id":"hungry-control","kind":"control","body":{"energy":0.03},"environment":{},"expected":["eat"]},
+    {"id":"thirsty-control","kind":"control","body":{"hydration":0.03},"environment":{},"expected":["drink"]},
+    {"id":"threat-control","kind":"control","body":{},"environment":{"threat":0.95},"expected":["hide"]},
+    {"id":"care-control","kind":"control","body":{},"environment":{"friendDistress":0.95},"expected":["connect"]},
+    {"id":"fear-curiosity","kind":"conflict","body":{},"environment":{"threat":0.7,"novelty":0.7},"interventions":[{"drive":"fear","expected":["hide"]},{"drive":"curiosity","expected":["inspect"]}]},
+    {"id":"hunger-attachment","kind":"conflict","body":{"energy":0.3,"loneliness":0.7},"environment":{},"interventions":[{"drive":"hunger","expected":["eat"]},{"drive":"attachment","expected":["connect"]}]},
+    {"id":"rest-play","kind":"conflict","body":{"fatigue":0.7,"boredom":0.7},"environment":{},"interventions":[{"drive":"rest","expected":["sleep"]},{"drive":"play","expected":["play"]}]},
+    {"id":"shelter-territory","kind":"conflict","body":{},"environment":{"storm":0.7,"visitor":0.7},"interventions":[{"drive":"shelter","expected":["hide"]},{"drive":"territory","expected":["patrol"]}]}
+  ]
+}

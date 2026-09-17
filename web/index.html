@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dodeca & Point — The many and the one</title><meta name="description" content="Two inhabitants in a strange, abundant world. Twelve competing drives, one holistic decision, and an experiment in wanting."><link rel="canonical" href="https://dodeca.alirezaafshan.com/"><meta property="og:title" content="Dodeca & Point"><meta property="og:description" content="A world of plenty. A question of wanting. Explore a living 3D experiment."><meta property="og:image" content="https://dodeca.alirezaafshan.com/social.png"><meta name="theme-color" content="#55813c"><link rel="stylesheet" href="/style.css"><link rel="icon" href="/icon.svg"></head>
+<body>
+  <main id="lab">
+    <div id="world" aria-label="Interactive 3D habitat. Drag to orbit, scroll to zoom."></div>
+    <div class="vignette"></div>
+    <header class="masthead">
+      <div class="identity"><span class="sigil">◈</span><div><h1>Dodeca <i>&</i> Point</h1><p>THE MANY AND THE ONE</p></div></div>
+      <div class="top-actions"><a class="galaxy-link" href="https://alirezaafshan.com/" aria-label="Back to Alireza's Galaxy">↖ <span>The Galaxy</span></a><span id="connection" class="connection">Connecting to the lab</span><button id="about" class="circle-button" aria-label="About this experiment">?</button></div>
+    </header>
+
+    <div class="world-caption"><span class="eyebrow">A LITTLE WILDERNESS</span><p>A world of plenty.<br>A question of wanting.</p></div>
+    <div id="dodeca-label" class="world-label"><span class="dot coral"></span>Dodeca</div>
+    <div id="point-label" class="world-label"><span class="dot blue"></span>Point</div>
+
+    <aside id="mind-panel" class="mind-panel hidden" aria-label="Dodeca drive controls">
+      <div class="panel-heading"><div><span class="eyebrow">INSIDE DODECA</span><h2>Twelve ways to want.</h2></div><button id="close-mind" class="circle-button" aria-label="Close drive controls">×</button></div>
+      <p class="panel-note">Change a drive’s weight. See which action wins.</p>
+      <div class="preset-row"><button data-preset="balanced" class="active">Balanced</button><button data-preset="curious">Explorer</button><button data-preset="timid">Homebody</button><button data-preset="social">Companion</button></div>
+      <div id="drives"></div>
+      <div class="mind-footer"><span>Disagreement <strong id="conflict">—</strong></span><span id="vote-caption">Scripted preview</span></div>
+    </aside>
+
+    <aside id="info-panel" class="info-panel hidden" aria-label="Experiment details">
+      <button id="close-info" class="circle-button" aria-label="Close experiment details">×</button>
+      <span class="eyebrow">AN OPEN QUESTION</span><h2>Can a committee<br>be a creature?</h2>
+      <p>Dodeca has twelve advisers. Each sees the same world and proposes an action from one drive’s perspective. Their weighted votes move one body.</p>
+      <p>Point weighs all twelve concerns in a single decision. Both have the same senses, movement, and endlessly replenishing resources.</p>
+      <p>In live mode, Jev supplies the judgments. Code supplies bodies, memory, movement, and the vote. These are two controllers of one model, not evidence of twelve independent minds.</p>
+      <div id="pilot-summary">The small frozen pilot has not run yet.</div>
+      <button id="export" class="text-button">↓ Export this session</button>
+      <nav class="ecosystem-links" aria-label="Elsewhere in the ecosystem"><a href="https://github.com/YesterdaysLemon/dodeca" target="_blank" rel="noopener">Source & field notes ↗</a><a href="https://alirezaafshan.com/">Alireza’s Galaxy ↗</a><a href="https://worm.alirezaafshan.com/">C. elegans Lab ↗</a><a href="https://morphogenesis.alirezaafshan.com/">Morphogenesis ↗</a><a href="https://deploy.alirezaafshan.com/">Release city ↗</a></nav>
+    </aside>
+
+    <div class="camera-tools"><button id="overview" aria-label="Overview camera">⌖ <span>Overview</span></button><button id="follow-dodeca">◈ <span>Follow Dodeca</span></button><button id="follow-point">● <span>Follow Point</span></button></div>
+    <section class="bottom-deck">
+      <div class="inhabitants">
+        <button id="open-mind" class="inhabitant dodeca-card" aria-expanded="false"><span class="creature-icon">◈</span><span class="inhabitant-copy"><span class="name">Dodeca <small>12 DRIVES</small></span><strong id="dodeca-action">Taking in the world</strong><span class="body-meters" id="dodeca-meters"></span></span><span class="expand-icon">↗</span></button>
+        <button id="inspect-point" class="inhabitant point-card"><span class="creature-icon">●</span><span class="inhabitant-copy"><span class="name">Point <small>ONE DECISION</small></span><strong id="point-action">Taking in the world</strong><span class="body-meters" id="point-meters"></span></span><span class="expand-icon">⌖</span></button>
+      </div>
+      <div class="transport">
+        <div class="playback"><button id="play" class="play-button" aria-label="Start simulation">▶</button><button id="step" class="step-button" aria-label="Advance one decision">Step →</button><span class="clock">MOMENT <strong id="tick">000</strong></span></div>
+        <div class="environment-tools"><button id="new-object" title="Introduce a strange new object">✧ Discovery</button><button id="storm" title="Raise storm pressure">☁ Weather</button><button id="call" title="Raise companion distress">♡ A call</button></div>
+        <div class="mode-controls"><label class="sr-only" for="source">Decision source</label><select id="source"><option value="rules">Local preview</option><option value="jev" disabled>Live Jev</option></select><button id="reset" aria-label="Reset both inhabitants">↺</button></div>
+      </div>
+      <div class="status-line"><span id="status" role="status">Drag to wander around · Scroll to get closer · Open Dodeca to adjust its drives</span><span id="usage">No API calls in preview</span></div>
+    </section>
+    <div id="loading"><span class="loading-glyph">◈</span><p>Growing a little wilderness…</p></div>
+  </main>
+  <script type="module" src="/app.mjs"></script>
+</body></html>
