@@ -6,3 +6,4 @@ results/live-*/
 .env
 .env.*
 tmp/
+build-sha

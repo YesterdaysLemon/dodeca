@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "host": {"name":"Alireza's VPS","platform":"Ubuntu + Docker","edge":"Caddy","manager":"Deploy Manager"},
+  "manager": {"hostname":"deploy.alirezaafshan.com","port":9019,"repository":"YesterdaysLemon/deploy-manager","branch":"main","probeIntervalMs":30000,"probeTimeoutMs":2500},
+  "apps": [{"id":"dodeca","name":"Dodeca & Point","description":"Two inhabitants in a strange, abundant 3D world: twelve competing drives and one holistic decision.","kind":"lab","repository":"YesterdaysLemon/dodeca","branch":"main","secretEnv":"DODECA_DEPLOY_WEBHOOK_SECRET","repoDir":"/opt/dodeca/app","repoUser":"deploy-manager","imageName":"dodeca","containerName":"dodeca","candidateContainerName":"dodeca-candidate","publicPort":3200,"candidatePort":3201,"containerPort":8080,"healthPath":"/healthz","hostname":"dodeca.alirezaafshan.com","runtimeEnvFile":"/etc/deploy-manager/runtime-env/dodeca.env"}],
+  "datastores": []
+}
+

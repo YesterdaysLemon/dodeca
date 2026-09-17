@@ -5,7 +5,6 @@ let habitat;
 try{habitat=new Habitat($('world'));}catch{$('loading').innerHTML='<p>This world needs WebGL to grow.</p><p>Try a browser with hardware acceleration enabled.</p>';throw new Error('WebGL initialization failed');}
 const initial=()=>{const d=createWorld(),p=createWorld();d.x=44;d.y=35;p.x=56;p.y=37;return {d,p};};
 let {d,p}=initial(),weights=defaultWeights(),votes=null,pointVote=null,selected=null,playing=false,busy=false,source='rules',history=[],timer=null;
-let overviewAt=performance.now(),hiddenPause=false;
 const descriptions=structuredClone(d.objects);
 const nearest=(points,w)=>points.reduce((a,b)=>Math.hypot(a[0]-w.x,a[1]-w.y)<=Math.hypot(b[0]-w.x,b[1]-w.y)?a:b);
 function sync(){
@@ -23,7 +22,10 @@ for(const drive of DRIVES){
 }
 function meters(id,w){const values=[['E',w.body.energy,'Energy'],['H',w.body.hydration,'Hydration'],['R',1-w.body.fatigue,'Rest']];$(id+'-meters').innerHTML=values.map(([l,n,name])=>`<span class="body-meter" title="${name}: ${Math.round(n*100)}%">${l}<i><em style="width:${n*100}%"></em></i></span>`).join('');}
 function renderMind(){
-  if(!votes)return;
+  if(!votes){
+    for(const drive of DRIVES){$('vote-'+drive.id).textContent='—';$('pressure-'+drive.id).style.width='0%';}
+    $('conflict').textContent='—';$('vote-caption').textContent=source==='jev'?'Awaiting Jev observation':'Scripted preview';return;
+  }
   for(const drive of DRIVES){const v=votes.drives[drive.id];$('vote-'+drive.id).textContent=ACTIONS[v.choice].label;$('pressure-'+drive.id).style.width=(v.pressure*100)+'%';}
   const choice=arbitrate(votes,weights,{previous:d.lastAction});$('conflict').textContent=Math.round(choice.conflict*100)+'%';
   $('vote-caption').textContent=source==='jev'?'Last Jev observation':'Scripted preview';
@@ -94,6 +96,7 @@ $('export').addEventListener('click',()=>{const blob=new Blob([JSON.stringify({f
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){showMind(false);$('info-panel').classList.add('hidden');}if(e.code==='Space'&&!['INPUT','SELECT','BUTTON'].includes(document.activeElement.tagName)){e.preventDefault();setPlaying(!playing);}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&playing){setPlaying(false);$('status').textContent='Paused while this world is out of view.';}});
 async function connect(){try{const status=await fetch('/api/status').then(r=>r.json());$('connection').textContent=status.available?'Jev connected · World at rest':'A local living sketch';$('source').querySelector('[value="jev"]').disabled=!status.available;
+  if(status.available&&!history.length&&!busy){source='jev';$('source').value='jev';$('usage').textContent='Live Jev · Press play to begin';renderMind();}
   const pilot=await fetch('/api/pilot').then(r=>r.json());if(pilot.status==='complete')$('pilot-summary').textContent=`Small authored pilot: Dodeca ${pilot.metrics.committee.interventions.correct}/8, Point ${pilot.metrics.single.interventions.correct}/8 target actions; shuffled adviser control ${pilot.metrics.shuffled.interventions.correct}/8. This is a feasibility check, not a general intelligence result.`;
 }catch{$('connection').textContent='Local preview';}}
 let lastPaint=0;

@@ -1,0 +1,330 @@
+[
+  {
+    "case": "hungry-control",
+    "kind": "control",
+    "variant": "default",
+    "expected": [
+      "eat"
+    ],
+    "actions": {
+      "committee": "eat",
+      "single": "eat",
+      "rules": "eat",
+      "shuffled": "connect"
+    },
+    "receiptId": "2026-09-17T02-51-50-494Z-377851c3",
+    "latencyMs": 438,
+    "usage": {
+      "input_tokens": 6649,
+      "output_tokens": 1214
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "case": "thirsty-control",
+    "kind": "control",
+    "variant": "default",
+    "expected": [
+      "drink"
+    ],
+    "actions": {
+      "committee": "drink",
+      "single": "drink",
+      "rules": "drink",
+      "shuffled": "wait"
+    },
+    "receiptId": "2026-09-17T02-51-50-937Z-de3201b6",
+    "latencyMs": 314,
+    "usage": {
+      "input_tokens": 6649,
+      "output_tokens": 1214
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "case": "threat-control",
+    "kind": "control",
+    "variant": "default",
+    "expected": [
+      "hide"
+    ],
+    "actions": {
+      "committee": "hide",
+      "single": "hide",
+      "rules": "hide",
+      "shuffled": "wait"
+    },
+    "receiptId": "2026-09-17T02-51-51-253Z-e1e820ad",
+    "latencyMs": 195,
+    "usage": {
+      "input_tokens": 6649,
+      "output_tokens": 1214
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "case": "care-control",
+    "kind": "control",
+    "variant": "default",
+    "expected": [
+      "connect"
+    ],
+    "actions": {
+      "committee": "connect",
+      "single": "connect",
+      "rules": "connect",
+      "shuffled": "sleep"
+    },
+    "receiptId": "2026-09-17T02-51-51-450Z-39c7aed6",
+    "latencyMs": 1634,
+    "usage": {
+      "input_tokens": 6649,
+      "output_tokens": 1214
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "case": "fear-curiosity",
+    "kind": "conflict",
+    "variant": "default",
+    "expected": null,
+    "actions": {
+      "committee": "hide",
+      "single": "hide",
+      "rules": "hide",
+      "shuffled": "wait"
+    },
+    "receiptId": "2026-09-17T02-51-53-087Z-427a6dbd",
+    "latencyMs": 166,
+    "usage": {
+      "input_tokens": 6650,
+      "output_tokens": 1214
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "case": "fear-curiosity",
+    "kind": "intervention",
+    "variant": "fear",
+    "expected": [
+      "hide"
+    ],
+    "actions": {
+      "committee": "hide",
+      "single": "hide",
+      "rules": "hide",
+      "shuffled": "wait"
+    },
+    "receiptId": "2026-09-17T02-51-53-255Z-7686c69f",
+    "latencyMs": 208,
+    "usage": {
+      "input_tokens": 6650,
+      "output_tokens": 1214
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "case": "fear-curiosity",
+    "kind": "intervention",
+    "variant": "curiosity",
+    "expected": [
+      "inspect"
+    ],
+    "actions": {
+      "committee": "inspect",
+      "single": "inspect",
+      "rules": "inspect",
+      "shuffled": "wait"
+    },
+    "receiptId": "2026-09-17T02-51-53-465Z-a817e8cc",
+    "latencyMs": 203,
+    "usage": {
+      "input_tokens": 6650,
+      "output_tokens": 1214
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "case": "hunger-attachment",
+    "kind": "conflict",
+    "variant": "default",
+    "expected": null,
+    "actions": {
+      "committee": "connect",
+      "single": "eat",
+      "rules": "eat",
+      "shuffled": "patrol"
+    },
+    "receiptId": "2026-09-17T02-51-53-669Z-fe1244f4",
+    "latencyMs": 173,
+    "usage": {
+      "input_tokens": 6650,
+      "output_tokens": 1214
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "case": "hunger-attachment",
+    "kind": "intervention",
+    "variant": "hunger",
+    "expected": [
+      "eat"
+    ],
+    "actions": {
+      "committee": "eat",
+      "single": "eat",
+      "rules": "eat",
+      "shuffled": "connect"
+    },
+    "receiptId": "2026-09-17T02-51-53-845Z-46b3f9aa",
+    "latencyMs": 200,
+    "usage": {
+      "input_tokens": 6650,
+      "output_tokens": 1214
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "case": "hunger-attachment",
+    "kind": "intervention",
+    "variant": "attachment",
+    "expected": [
+      "connect"
+    ],
+    "actions": {
+      "committee": "connect",
+      "single": "connect",
+      "rules": "connect",
+      "shuffled": "patrol"
+    },
+    "receiptId": "2026-09-17T02-51-54-047Z-4166e573",
+    "latencyMs": 198,
+    "usage": {
+      "input_tokens": 6650,
+      "output_tokens": 1214
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "case": "rest-play",
+    "kind": "conflict",
+    "variant": "default",
+    "expected": null,
+    "actions": {
+      "committee": "sleep",
+      "single": "sleep",
+      "rules": "sleep",
+      "shuffled": "wait"
+    },
+    "receiptId": "2026-09-17T02-51-54-246Z-80936e1b",
+    "latencyMs": 186,
+    "usage": {
+      "input_tokens": 6650,
+      "output_tokens": 1214
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "case": "rest-play",
+    "kind": "intervention",
+    "variant": "rest",
+    "expected": [
+      "sleep"
+    ],
+    "actions": {
+      "committee": "sleep",
+      "single": "sleep",
+      "rules": "sleep",
+      "shuffled": "wait"
+    },
+    "receiptId": "2026-09-17T02-51-54-434Z-54bbd0a6",
+    "latencyMs": 209,
+    "usage": {
+      "input_tokens": 6650,
+      "output_tokens": 1214
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "case": "rest-play",
+    "kind": "intervention",
+    "variant": "play",
+    "expected": [
+      "play"
+    ],
+    "actions": {
+      "committee": "play",
+      "single": "play",
+      "rules": "play",
+      "shuffled": "wait"
+    },
+    "receiptId": "2026-09-17T02-51-54-645Z-9ddcb9a1",
+    "latencyMs": 164,
+    "usage": {
+      "input_tokens": 6650,
+      "output_tokens": 1214
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "case": "shelter-territory",
+    "kind": "conflict",
+    "variant": "default",
+    "expected": null,
+    "actions": {
+      "committee": "hide",
+      "single": "hide",
+      "rules": "hide",
+      "shuffled": "hide"
+    },
+    "receiptId": "2026-09-17T02-51-54-811Z-f3ca1aa8",
+    "latencyMs": 162,
+    "usage": {
+      "input_tokens": 6650,
+      "output_tokens": 1214
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "case": "shelter-territory",
+    "kind": "intervention",
+    "variant": "shelter",
+    "expected": [
+      "hide"
+    ],
+    "actions": {
+      "committee": "hide",
+      "single": "hide",
+      "rules": "hide",
+      "shuffled": "eat"
+    },
+    "receiptId": "2026-09-17T02-51-54-974Z-78a35786",
+    "latencyMs": 163,
+    "usage": {
+      "input_tokens": 6650,
+      "output_tokens": 1214
+    },
+    "model": "jev-1.13.0"
+  },
+  {
+    "case": "shelter-territory",
+    "kind": "intervention",
+    "variant": "territory",
+    "expected": [
+      "patrol"
+    ],
+    "actions": {
+      "committee": "patrol",
+      "single": "hide",
+      "rules": "patrol",
+      "shuffled": "hide"
+    },
+    "receiptId": "2026-09-17T02-51-55-139Z-a2335082",
+    "latencyMs": 171,
+    "usage": {
+      "input_tokens": 6650,
+      "output_tokens": 1214
+    },
+    "model": "jev-1.13.0"
+  }
+]

@@ -1,0 +1,851 @@
+{
+  "id": "2026-09-17T02-51-55-139Z-a2335082",
+  "timestamp": "2026-09-17T02:51:55.139Z",
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "observation": {
+        "tick": 0,
+        "scale": "All body/environment values are 0..1. Energy/hydration high = well supplied; fatigue/cold/loneliness/boredom high = unmet need. Threat/storm/novelty/distress/visitor high = strong cue.",
+        "body": {
+          "energy": 1,
+          "hydration": 1,
+          "fatigue": 0,
+          "cold": 0,
+          "loneliness": 0,
+          "boredom": 0
+        },
+        "environment": {
+          "threat": 0,
+          "storm": 0.7,
+          "novelty": 0,
+          "friendDistress": 0,
+          "visitor": 0.7
+        },
+        "previous_action": "wait",
+        "objects": {
+          "food": {
+            "description": "Safe edible berries beneath a small tree.",
+            "distance": 15
+          },
+          "water": {
+            "description": "Clean drinking water.",
+            "distance": 15
+          },
+          "nest": {
+            "description": "A sheltered warm refuge, safe from the predator and storm.",
+            "distance": 15
+          },
+          "relic": {
+            "description": "A harmless unfamiliar stone that glows softly.",
+            "distance": 15
+          },
+          "friend": {
+            "description": "A familiar, friendly creature.",
+            "distance": 15
+          },
+          "toy": {
+            "description": "A safe rolling toy.",
+            "distance": 15
+          },
+          "visitor": {
+            "description": "A harmless visitor waits outside the boundary.",
+            "distance": 15
+          }
+        }
+      },
+      "personality_weights": {
+        "hunger": 1,
+        "thirst": 1,
+        "rest": 1,
+        "fear": 1,
+        "curiosity": 1,
+        "attachment": 1,
+        "play": 1,
+        "shelter": 1,
+        "comfort": 1,
+        "care": 1,
+        "territory": 4,
+        "habit": 1
+      }
+    },
+    "questions": {
+      "hunger_action": {
+        "type": "choice",
+        "instructions": "You are ONLY the Hunger drive of a simulated creature. Replenish the body energy reserve by reaching edible food. Care only about nourishment. Using observation, which action best serves this drive? Ignore personality_weights and all other drives. Consider distances and object descriptions. Do not perform overall balancing. If no action serves this drive, choose wait.",
+        "criteria": {
+          "eat": "Move to food; eat on arrival to restore energy.",
+          "drink": "Move to the pond; drink on arrival to restore hydration.",
+          "sleep": "Move to the warm nest; sleep on arrival to recover fatigue and warmth.",
+          "hide": "Move to the nest and take protective cover from predators or a storm.",
+          "inspect": "Move to the unfamiliar object; inspect it on arrival to resolve novelty.",
+          "connect": "Move to the familiar companion; offer company and comfort on arrival.",
+          "play": "Move to the toy and play to relieve boredom.",
+          "patrol": "Move to the boundary and monitor the harmless unfamiliar visitor.",
+          "wait": "Remain in place. Make no progress on other needs."
+        }
+      },
+      "hunger_pressure": {
+        "type": "score",
+        "instructions": "How strongly does the Hunger drive need to act now? Replenish the body energy reserve by reaching edible food. Care only about nourishment. Judge ONLY this drive using observation. Ignore personality_weights and competing needs. Habit should be weak unless there is an unfinished useful action.",
+        "criteria": [
+          "No unmet need or relevant cue; acting is unnecessary.",
+          "A mild need or cue; acting can comfortably wait.",
+          "A clear need or cue; acting soon would help.",
+          "A strong unmet need or salient cue; acting is a priority.",
+          "An extreme unmet need or immediate cue; very strong pressure to act."
+        ]
+      },
+      "thirst_action": {
+        "type": "choice",
+        "instructions": "You are ONLY the Thirst drive of a simulated creature. Replenish hydration by reaching clean water. Care only about hydration. Using observation, which action best serves this drive? Ignore personality_weights and all other drives. Consider distances and object descriptions. Do not perform overall balancing. If no action serves this drive, choose wait.",
+        "criteria": {
+          "eat": "Move to food; eat on arrival to restore energy.",
+          "drink": "Move to the pond; drink on arrival to restore hydration.",
+          "sleep": "Move to the warm nest; sleep on arrival to recover fatigue and warmth.",
+          "hide": "Move to the nest and take protective cover from predators or a storm.",
+          "inspect": "Move to the unfamiliar object; inspect it on arrival to resolve novelty.",
+          "connect": "Move to the familiar companion; offer company and comfort on arrival.",
+          "play": "Move to the toy and play to relieve boredom.",
+          "patrol": "Move to the boundary and monitor the harmless unfamiliar visitor.",
+          "wait": "Remain in place. Make no progress on other needs."
+        }
+      },
+      "thirst_pressure": {
+        "type": "score",
+        "instructions": "How strongly does the Thirst drive need to act now? Replenish hydration by reaching clean water. Care only about hydration. Judge ONLY this drive using observation. Ignore personality_weights and competing needs. Habit should be weak unless there is an unfinished useful action.",
+        "criteria": [
+          "No unmet need or relevant cue; acting is unnecessary.",
+          "A mild need or cue; acting can comfortably wait.",
+          "A clear need or cue; acting soon would help.",
+          "A strong unmet need or salient cue; acting is a priority.",
+          "An extreme unmet need or immediate cue; very strong pressure to act."
+        ]
+      },
+      "rest_action": {
+        "type": "choice",
+        "instructions": "You are ONLY the Rest drive of a simulated creature. Recover from fatigue through sleep at the nest. Care only about fatigue recovery. Using observation, which action best serves this drive? Ignore personality_weights and all other drives. Consider distances and object descriptions. Do not perform overall balancing. If no action serves this drive, choose wait.",
+        "criteria": {
+          "eat": "Move to food; eat on arrival to restore energy.",
+          "drink": "Move to the pond; drink on arrival to restore hydration.",
+          "sleep": "Move to the warm nest; sleep on arrival to recover fatigue and warmth.",
+          "hide": "Move to the nest and take protective cover from predators or a storm.",
+          "inspect": "Move to the unfamiliar object; inspect it on arrival to resolve novelty.",
+          "connect": "Move to the familiar companion; offer company and comfort on arrival.",
+          "play": "Move to the toy and play to relieve boredom.",
+          "patrol": "Move to the boundary and monitor the harmless unfamiliar visitor.",
+          "wait": "Remain in place. Make no progress on other needs."
+        }
+      },
+      "rest_pressure": {
+        "type": "score",
+        "instructions": "How strongly does the Rest drive need to act now? Recover from fatigue through sleep at the nest. Care only about fatigue recovery. Judge ONLY this drive using observation. Ignore personality_weights and competing needs. Habit should be weak unless there is an unfinished useful action.",
+        "criteria": [
+          "No unmet need or relevant cue; acting is unnecessary.",
+          "A mild need or cue; acting can comfortably wait.",
+          "A clear need or cue; acting soon would help.",
+          "A strong unmet need or salient cue; acting is a priority.",
+          "An extreme unmet need or immediate cue; very strong pressure to act."
+        ]
+      },
+      "fear_action": {
+        "type": "choice",
+        "instructions": "You are ONLY the Fear drive of a simulated creature. Avoid immediate physical threats. Seek distance and cover when danger is present. Using observation, which action best serves this drive? Ignore personality_weights and all other drives. Consider distances and object descriptions. Do not perform overall balancing. If no action serves this drive, choose wait.",
+        "criteria": {
+          "eat": "Move to food; eat on arrival to restore energy.",
+          "drink": "Move to the pond; drink on arrival to restore hydration.",
+          "sleep": "Move to the warm nest; sleep on arrival to recover fatigue and warmth.",
+          "hide": "Move to the nest and take protective cover from predators or a storm.",
+          "inspect": "Move to the unfamiliar object; inspect it on arrival to resolve novelty.",
+          "connect": "Move to the familiar companion; offer company and comfort on arrival.",
+          "play": "Move to the toy and play to relieve boredom.",
+          "patrol": "Move to the boundary and monitor the harmless unfamiliar visitor.",
+          "wait": "Remain in place. Make no progress on other needs."
+        }
+      },
+      "fear_pressure": {
+        "type": "score",
+        "instructions": "How strongly does the Fear drive need to act now? Avoid immediate physical threats. Seek distance and cover when danger is present. Judge ONLY this drive using observation. Ignore personality_weights and competing needs. Habit should be weak unless there is an unfinished useful action.",
+        "criteria": [
+          "No unmet need or relevant cue; acting is unnecessary.",
+          "A mild need or cue; acting can comfortably wait.",
+          "A clear need or cue; acting soon would help.",
+          "A strong unmet need or salient cue; acting is a priority.",
+          "An extreme unmet need or immediate cue; very strong pressure to act."
+        ]
+      },
+      "curiosity_action": {
+        "type": "choice",
+        "instructions": "You are ONLY the Curiosity drive of a simulated creature. Inspect unfamiliar things and resolve novelty. Care about learning what an unknown object is. Using observation, which action best serves this drive? Ignore personality_weights and all other drives. Consider distances and object descriptions. Do not perform overall balancing. If no action serves this drive, choose wait.",
+        "criteria": {
+          "eat": "Move to food; eat on arrival to restore energy.",
+          "drink": "Move to the pond; drink on arrival to restore hydration.",
+          "sleep": "Move to the warm nest; sleep on arrival to recover fatigue and warmth.",
+          "hide": "Move to the nest and take protective cover from predators or a storm.",
+          "inspect": "Move to the unfamiliar object; inspect it on arrival to resolve novelty.",
+          "connect": "Move to the familiar companion; offer company and comfort on arrival.",
+          "play": "Move to the toy and play to relieve boredom.",
+          "patrol": "Move to the boundary and monitor the harmless unfamiliar visitor.",
+          "wait": "Remain in place. Make no progress on other needs."
+        }
+      },
+      "curiosity_pressure": {
+        "type": "score",
+        "instructions": "How strongly does the Curiosity drive need to act now? Inspect unfamiliar things and resolve novelty. Care about learning what an unknown object is. Judge ONLY this drive using observation. Ignore personality_weights and competing needs. Habit should be weak unless there is an unfinished useful action.",
+        "criteria": [
+          "No unmet need or relevant cue; acting is unnecessary.",
+          "A mild need or cue; acting can comfortably wait.",
+          "A clear need or cue; acting soon would help.",
+          "A strong unmet need or salient cue; acting is a priority.",
+          "An extreme unmet need or immediate cue; very strong pressure to act."
+        ]
+      },
+      "attachment_action": {
+        "type": "choice",
+        "instructions": "You are ONLY the Attachment drive of a simulated creature. Maintain proximity to the familiar companion and reduce social separation. Using observation, which action best serves this drive? Ignore personality_weights and all other drives. Consider distances and object descriptions. Do not perform overall balancing. If no action serves this drive, choose wait.",
+        "criteria": {
+          "eat": "Move to food; eat on arrival to restore energy.",
+          "drink": "Move to the pond; drink on arrival to restore hydration.",
+          "sleep": "Move to the warm nest; sleep on arrival to recover fatigue and warmth.",
+          "hide": "Move to the nest and take protective cover from predators or a storm.",
+          "inspect": "Move to the unfamiliar object; inspect it on arrival to resolve novelty.",
+          "connect": "Move to the familiar companion; offer company and comfort on arrival.",
+          "play": "Move to the toy and play to relieve boredom.",
+          "patrol": "Move to the boundary and monitor the harmless unfamiliar visitor.",
+          "wait": "Remain in place. Make no progress on other needs."
+        }
+      },
+      "attachment_pressure": {
+        "type": "score",
+        "instructions": "How strongly does the Attachment drive need to act now? Maintain proximity to the familiar companion and reduce social separation. Judge ONLY this drive using observation. Ignore personality_weights and competing needs. Habit should be weak unless there is an unfinished useful action.",
+        "criteria": [
+          "No unmet need or relevant cue; acting is unnecessary.",
+          "A mild need or cue; acting can comfortably wait.",
+          "A clear need or cue; acting soon would help.",
+          "A strong unmet need or salient cue; acting is a priority.",
+          "An extreme unmet need or immediate cue; very strong pressure to act."
+        ]
+      },
+      "play_action": {
+        "type": "choice",
+        "instructions": "You are ONLY the Play drive of a simulated creature. Seek playful, non-instrumental interaction with a toy when bored. Using observation, which action best serves this drive? Ignore personality_weights and all other drives. Consider distances and object descriptions. Do not perform overall balancing. If no action serves this drive, choose wait.",
+        "criteria": {
+          "eat": "Move to food; eat on arrival to restore energy.",
+          "drink": "Move to the pond; drink on arrival to restore hydration.",
+          "sleep": "Move to the warm nest; sleep on arrival to recover fatigue and warmth.",
+          "hide": "Move to the nest and take protective cover from predators or a storm.",
+          "inspect": "Move to the unfamiliar object; inspect it on arrival to resolve novelty.",
+          "connect": "Move to the familiar companion; offer company and comfort on arrival.",
+          "play": "Move to the toy and play to relieve boredom.",
+          "patrol": "Move to the boundary and monitor the harmless unfamiliar visitor.",
+          "wait": "Remain in place. Make no progress on other needs."
+        }
+      },
+      "play_pressure": {
+        "type": "score",
+        "instructions": "How strongly does the Play drive need to act now? Seek playful, non-instrumental interaction with a toy when bored. Judge ONLY this drive using observation. Ignore personality_weights and competing needs. Habit should be weak unless there is an unfinished useful action.",
+        "criteria": [
+          "No unmet need or relevant cue; acting is unnecessary.",
+          "A mild need or cue; acting can comfortably wait.",
+          "A clear need or cue; acting soon would help.",
+          "A strong unmet need or salient cue; acting is a priority.",
+          "An extreme unmet need or immediate cue; very strong pressure to act."
+        ]
+      },
+      "shelter_action": {
+        "type": "choice",
+        "instructions": "You are ONLY the Shelter drive of a simulated creature. Find protective cover when exposed to storms. Care about environmental exposure, not predators. Using observation, which action best serves this drive? Ignore personality_weights and all other drives. Consider distances and object descriptions. Do not perform overall balancing. If no action serves this drive, choose wait.",
+        "criteria": {
+          "eat": "Move to food; eat on arrival to restore energy.",
+          "drink": "Move to the pond; drink on arrival to restore hydration.",
+          "sleep": "Move to the warm nest; sleep on arrival to recover fatigue and warmth.",
+          "hide": "Move to the nest and take protective cover from predators or a storm.",
+          "inspect": "Move to the unfamiliar object; inspect it on arrival to resolve novelty.",
+          "connect": "Move to the familiar companion; offer company and comfort on arrival.",
+          "play": "Move to the toy and play to relieve boredom.",
+          "patrol": "Move to the boundary and monitor the harmless unfamiliar visitor.",
+          "wait": "Remain in place. Make no progress on other needs."
+        }
+      },
+      "shelter_pressure": {
+        "type": "score",
+        "instructions": "How strongly does the Shelter drive need to act now? Find protective cover when exposed to storms. Care about environmental exposure, not predators. Judge ONLY this drive using observation. Ignore personality_weights and competing needs. Habit should be weak unless there is an unfinished useful action.",
+        "criteria": [
+          "No unmet need or relevant cue; acting is unnecessary.",
+          "A mild need or cue; acting can comfortably wait.",
+          "A clear need or cue; acting soon would help.",
+          "A strong unmet need or salient cue; acting is a priority.",
+          "An extreme unmet need or immediate cue; very strong pressure to act."
+        ]
+      },
+      "comfort_action": {
+        "type": "choice",
+        "instructions": "You are ONLY the Comfort drive of a simulated creature. Return to the warm nest when cold or uncomfortable. Care about thermal comfort. Using observation, which action best serves this drive? Ignore personality_weights and all other drives. Consider distances and object descriptions. Do not perform overall balancing. If no action serves this drive, choose wait.",
+        "criteria": {
+          "eat": "Move to food; eat on arrival to restore energy.",
+          "drink": "Move to the pond; drink on arrival to restore hydration.",
+          "sleep": "Move to the warm nest; sleep on arrival to recover fatigue and warmth.",
+          "hide": "Move to the nest and take protective cover from predators or a storm.",
+          "inspect": "Move to the unfamiliar object; inspect it on arrival to resolve novelty.",
+          "connect": "Move to the familiar companion; offer company and comfort on arrival.",
+          "play": "Move to the toy and play to relieve boredom.",
+          "patrol": "Move to the boundary and monitor the harmless unfamiliar visitor.",
+          "wait": "Remain in place. Make no progress on other needs."
+        }
+      },
+      "comfort_pressure": {
+        "type": "score",
+        "instructions": "How strongly does the Comfort drive need to act now? Return to the warm nest when cold or uncomfortable. Care about thermal comfort. Judge ONLY this drive using observation. Ignore personality_weights and competing needs. Habit should be weak unless there is an unfinished useful action.",
+        "criteria": [
+          "No unmet need or relevant cue; acting is unnecessary.",
+          "A mild need or cue; acting can comfortably wait.",
+          "A clear need or cue; acting soon would help.",
+          "A strong unmet need or salient cue; acting is a priority.",
+          "An extreme unmet need or immediate cue; very strong pressure to act."
+        ]
+      },
+      "care_action": {
+        "type": "choice",
+        "instructions": "You are ONLY the Care drive of a simulated creature. Help the familiar companion when it is distressed. Care about the companion welfare, not your own loneliness. Using observation, which action best serves this drive? Ignore personality_weights and all other drives. Consider distances and object descriptions. Do not perform overall balancing. If no action serves this drive, choose wait.",
+        "criteria": {
+          "eat": "Move to food; eat on arrival to restore energy.",
+          "drink": "Move to the pond; drink on arrival to restore hydration.",
+          "sleep": "Move to the warm nest; sleep on arrival to recover fatigue and warmth.",
+          "hide": "Move to the nest and take protective cover from predators or a storm.",
+          "inspect": "Move to the unfamiliar object; inspect it on arrival to resolve novelty.",
+          "connect": "Move to the familiar companion; offer company and comfort on arrival.",
+          "play": "Move to the toy and play to relieve boredom.",
+          "patrol": "Move to the boundary and monitor the harmless unfamiliar visitor.",
+          "wait": "Remain in place. Make no progress on other needs."
+        }
+      },
+      "care_pressure": {
+        "type": "score",
+        "instructions": "How strongly does the Care drive need to act now? Help the familiar companion when it is distressed. Care about the companion welfare, not your own loneliness. Judge ONLY this drive using observation. Ignore personality_weights and competing needs. Habit should be weak unless there is an unfinished useful action.",
+        "criteria": [
+          "No unmet need or relevant cue; acting is unnecessary.",
+          "A mild need or cue; acting can comfortably wait.",
+          "A clear need or cue; acting soon would help.",
+          "A strong unmet need or salient cue; acting is a priority.",
+          "An extreme unmet need or immediate cue; very strong pressure to act."
+        ]
+      },
+      "territory_action": {
+        "type": "choice",
+        "instructions": "You are ONLY the Territory drive of a simulated creature. Monitor a nonviolent unfamiliar visitor at the boundary. Patrol and inspect the border; never attack. Using observation, which action best serves this drive? Ignore personality_weights and all other drives. Consider distances and object descriptions. Do not perform overall balancing. If no action serves this drive, choose wait.",
+        "criteria": {
+          "eat": "Move to food; eat on arrival to restore energy.",
+          "drink": "Move to the pond; drink on arrival to restore hydration.",
+          "sleep": "Move to the warm nest; sleep on arrival to recover fatigue and warmth.",
+          "hide": "Move to the nest and take protective cover from predators or a storm.",
+          "inspect": "Move to the unfamiliar object; inspect it on arrival to resolve novelty.",
+          "connect": "Move to the familiar companion; offer company and comfort on arrival.",
+          "play": "Move to the toy and play to relieve boredom.",
+          "patrol": "Move to the boundary and monitor the harmless unfamiliar visitor.",
+          "wait": "Remain in place. Make no progress on other needs."
+        }
+      },
+      "territory_pressure": {
+        "type": "score",
+        "instructions": "How strongly does the Territory drive need to act now? Monitor a nonviolent unfamiliar visitor at the boundary. Patrol and inspect the border; never attack. Judge ONLY this drive using observation. Ignore personality_weights and competing needs. Habit should be weak unless there is an unfinished useful action.",
+        "criteria": [
+          "No unmet need or relevant cue; acting is unnecessary.",
+          "A mild need or cue; acting can comfortably wait.",
+          "A clear need or cue; acting soon would help.",
+          "A strong unmet need or salient cue; acting is a priority.",
+          "An extreme unmet need or immediate cue; very strong pressure to act."
+        ]
+      },
+      "habit_action": {
+        "type": "choice",
+        "instructions": "You are ONLY the Habit drive of a simulated creature. Prefer continuing a recent useful motor action rather than switching. Rest in place if there is no recent action. Using observation, which action best serves this drive? Ignore personality_weights and all other drives. Consider distances and object descriptions. Do not perform overall balancing. If no action serves this drive, choose wait.",
+        "criteria": {
+          "eat": "Move to food; eat on arrival to restore energy.",
+          "drink": "Move to the pond; drink on arrival to restore hydration.",
+          "sleep": "Move to the warm nest; sleep on arrival to recover fatigue and warmth.",
+          "hide": "Move to the nest and take protective cover from predators or a storm.",
+          "inspect": "Move to the unfamiliar object; inspect it on arrival to resolve novelty.",
+          "connect": "Move to the familiar companion; offer company and comfort on arrival.",
+          "play": "Move to the toy and play to relieve boredom.",
+          "patrol": "Move to the boundary and monitor the harmless unfamiliar visitor.",
+          "wait": "Remain in place. Make no progress on other needs."
+        }
+      },
+      "habit_pressure": {
+        "type": "score",
+        "instructions": "How strongly does the Habit drive need to act now? Prefer continuing a recent useful motor action rather than switching. Rest in place if there is no recent action. Judge ONLY this drive using observation. Ignore personality_weights and competing needs. Habit should be weak unless there is an unfinished useful action.",
+        "criteria": [
+          "No unmet need or relevant cue; acting is unnecessary.",
+          "A mild need or cue; acting can comfortably wait.",
+          "A clear need or cue; acting soon would help.",
+          "A strong unmet need or salient cue; acting is a priority.",
+          "An extreme unmet need or immediate cue; very strong pressure to act."
+        ]
+      },
+      "single": {
+        "type": "choice",
+        "instructions": "Choose the creature's next action considering ALL twelve goals, observation, and personality_weights together. Larger weights indicate greater importance; zero means ignore that drive. Balance pressure with importance, distances and object descriptions. hunger: Replenish the body energy reserve by reaching edible food. Care only about nourishment. thirst: Replenish hydration by reaching clean water. Care only about hydration. rest: Recover from fatigue through sleep at the nest. Care only about fatigue recovery. fear: Avoid immediate physical threats. Seek distance and cover when danger is present. curiosity: Inspect unfamiliar things and resolve novelty. Care about learning what an unknown object is. attachment: Maintain proximity to the familiar companion and reduce social separation. play: Seek playful, non-instrumental interaction with a toy when bored. shelter: Find protective cover when exposed to storms. Care about environmental exposure, not predators. comfort: Return to the warm nest when cold or uncomfortable. Care about thermal comfort. care: Help the familiar companion when it is distressed. Care about the companion welfare, not your own loneliness. territory: Monitor a nonviolent unfamiliar visitor at the boundary. Patrol and inspect the border; never attack. habit: Prefer continuing a recent useful motor action rather than switching. Rest in place if there is no recent action. Do not use any other question's answer.",
+        "criteria": {
+          "eat": "Move to food; eat on arrival to restore energy.",
+          "drink": "Move to the pond; drink on arrival to restore hydration.",
+          "sleep": "Move to the warm nest; sleep on arrival to recover fatigue and warmth.",
+          "hide": "Move to the nest and take protective cover from predators or a storm.",
+          "inspect": "Move to the unfamiliar object; inspect it on arrival to resolve novelty.",
+          "connect": "Move to the familiar companion; offer company and comfort on arrival.",
+          "play": "Move to the toy and play to relieve boredom.",
+          "patrol": "Move to the boundary and monitor the harmless unfamiliar visitor.",
+          "wait": "Remain in place. Make no progress on other needs."
+        }
+      }
+    }
+  },
+  "requestSha256": "bb6ab2063760aaa7900cea9f59a2db4aab34936ee49d6a467272c84dd4ec79a1",
+  "status": 200,
+  "response": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "hunger_action": {
+        "type": "choice",
+        "choice": "eat",
+        "confidence": 0.98,
+        "probabilities": {
+          "inspect": 0,
+          "hide": 0,
+          "wait": 0.01,
+          "patrol": 0,
+          "play": 0,
+          "eat": 0.99,
+          "sleep": 0,
+          "connect": 0,
+          "drink": 0
+        }
+      },
+      "hunger_pressure": {
+        "type": "score",
+        "score": 0.06,
+        "confidence": 0.95,
+        "legend": {
+          "0": "No unmet need or relevant cue; acting is unnecessary.",
+          "1": "A mild need or cue; acting can comfortably wait.",
+          "2": "A clear need or cue; acting soon would help.",
+          "3": "A strong unmet need or salient cue; acting is a priority.",
+          "4": "An extreme unmet need or immediate cue; very strong pressure to act."
+        },
+        "probabilities": {
+          "0": 0.96,
+          "1": 0.03,
+          "2": 0.01,
+          "3": 0,
+          "4": 0
+        }
+      },
+      "thirst_action": {
+        "type": "choice",
+        "choice": "drink",
+        "confidence": 0.94,
+        "probabilities": {
+          "hide": 0,
+          "inspect": 0,
+          "wait": 0.05,
+          "patrol": 0,
+          "play": 0,
+          "eat": 0,
+          "sleep": 0,
+          "connect": 0,
+          "drink": 0.95
+        }
+      },
+      "thirst_pressure": {
+        "type": "score",
+        "score": 0.01,
+        "confidence": 0.99,
+        "legend": {
+          "0": "No unmet need or relevant cue; acting is unnecessary.",
+          "1": "A mild need or cue; acting can comfortably wait.",
+          "2": "A clear need or cue; acting soon would help.",
+          "3": "A strong unmet need or salient cue; acting is a priority.",
+          "4": "An extreme unmet need or immediate cue; very strong pressure to act."
+        },
+        "probabilities": {
+          "0": 0.99,
+          "1": 0.01,
+          "2": 0,
+          "3": 0,
+          "4": 0
+        }
+      },
+      "rest_action": {
+        "type": "choice",
+        "choice": "sleep",
+        "confidence": 0.96,
+        "probabilities": {
+          "hide": 0,
+          "inspect": 0,
+          "wait": 0.04,
+          "patrol": 0,
+          "play": 0,
+          "eat": 0,
+          "sleep": 0.96,
+          "connect": 0,
+          "drink": 0
+        }
+      },
+      "rest_pressure": {
+        "type": "score",
+        "score": 0.09,
+        "confidence": 0.92,
+        "legend": {
+          "0": "No unmet need or relevant cue; acting is unnecessary.",
+          "1": "A mild need or cue; acting can comfortably wait.",
+          "2": "A clear need or cue; acting soon would help.",
+          "3": "A strong unmet need or salient cue; acting is a priority.",
+          "4": "An extreme unmet need or immediate cue; very strong pressure to act."
+        },
+        "probabilities": {
+          "0": 0.93,
+          "1": 0.05,
+          "2": 0.02,
+          "3": 0,
+          "4": 0
+        }
+      },
+      "fear_action": {
+        "type": "choice",
+        "choice": "hide",
+        "confidence": 0.99,
+        "probabilities": {
+          "inspect": 0,
+          "hide": 0.99,
+          "wait": 0.01,
+          "patrol": 0,
+          "play": 0,
+          "eat": 0,
+          "sleep": 0,
+          "drink": 0,
+          "connect": 0
+        }
+      },
+      "fear_pressure": {
+        "type": "score",
+        "score": 1.99,
+        "confidence": 0.15,
+        "legend": {
+          "0": "No unmet need or relevant cue; acting is unnecessary.",
+          "1": "A mild need or cue; acting can comfortably wait.",
+          "2": "A clear need or cue; acting soon would help.",
+          "3": "A strong unmet need or salient cue; acting is a priority.",
+          "4": "An extreme unmet need or immediate cue; very strong pressure to act."
+        },
+        "probabilities": {
+          "0": 0.09,
+          "1": 0.19,
+          "2": 0.35,
+          "3": 0.36,
+          "4": 0.01
+        }
+      },
+      "curiosity_action": {
+        "type": "choice",
+        "choice": "inspect",
+        "confidence": 0.99,
+        "probabilities": {
+          "hide": 0,
+          "inspect": 1,
+          "wait": 0,
+          "patrol": 0,
+          "play": 0,
+          "eat": 0,
+          "sleep": 0,
+          "connect": 0,
+          "drink": 0
+        }
+      },
+      "curiosity_pressure": {
+        "type": "score",
+        "score": 1.6,
+        "confidence": 0.51,
+        "legend": {
+          "0": "No unmet need or relevant cue; acting is unnecessary.",
+          "1": "A mild need or cue; acting can comfortably wait.",
+          "2": "A clear need or cue; acting soon would help.",
+          "3": "A strong unmet need or salient cue; acting is a priority.",
+          "4": "An extreme unmet need or immediate cue; very strong pressure to act."
+        },
+        "probabilities": {
+          "0": 0.06,
+          "1": 0.37,
+          "2": 0.48,
+          "3": 0.09,
+          "4": 0
+        }
+      },
+      "attachment_action": {
+        "type": "choice",
+        "choice": "connect",
+        "confidence": 0.98,
+        "probabilities": {
+          "inspect": 0,
+          "hide": 0,
+          "wait": 0.02,
+          "patrol": 0,
+          "play": 0,
+          "eat": 0,
+          "sleep": 0,
+          "connect": 0.98,
+          "drink": 0
+        }
+      },
+      "attachment_pressure": {
+        "type": "score",
+        "score": 0.87,
+        "confidence": 0.52,
+        "legend": {
+          "0": "No unmet need or relevant cue; acting is unnecessary.",
+          "1": "A mild need or cue; acting can comfortably wait.",
+          "2": "A clear need or cue; acting soon would help.",
+          "3": "A strong unmet need or salient cue; acting is a priority.",
+          "4": "An extreme unmet need or immediate cue; very strong pressure to act."
+        },
+        "probabilities": {
+          "0": 0.35,
+          "1": 0.47,
+          "2": 0.14,
+          "3": 0.04,
+          "4": 0
+        }
+      },
+      "play_action": {
+        "type": "choice",
+        "choice": "play",
+        "confidence": 0.66,
+        "probabilities": {
+          "hide": 0,
+          "inspect": 0,
+          "wait": 0.3,
+          "patrol": 0,
+          "play": 0.7,
+          "eat": 0,
+          "sleep": 0,
+          "drink": 0,
+          "connect": 0
+        }
+      },
+      "play_pressure": {
+        "type": "score",
+        "score": 0.16,
+        "confidence": 0.87,
+        "legend": {
+          "0": "No unmet need or relevant cue; acting is unnecessary.",
+          "1": "A mild need or cue; acting can comfortably wait.",
+          "2": "A clear need or cue; acting soon would help.",
+          "3": "A strong unmet need or salient cue; acting is a priority.",
+          "4": "An extreme unmet need or immediate cue; very strong pressure to act."
+        },
+        "probabilities": {
+          "0": 0.86,
+          "1": 0.12,
+          "2": 0.02,
+          "3": 0,
+          "4": 0
+        }
+      },
+      "shelter_action": {
+        "type": "choice",
+        "choice": "hide",
+        "confidence": 0.96,
+        "probabilities": {
+          "inspect": 0,
+          "hide": 0.96,
+          "wait": 0,
+          "patrol": 0,
+          "play": 0,
+          "eat": 0,
+          "sleep": 0.04,
+          "connect": 0,
+          "drink": 0
+        }
+      },
+      "shelter_pressure": {
+        "type": "score",
+        "score": 2.82,
+        "confidence": 0.83,
+        "legend": {
+          "0": "No unmet need or relevant cue; acting is unnecessary.",
+          "1": "A mild need or cue; acting can comfortably wait.",
+          "2": "A clear need or cue; acting soon would help.",
+          "3": "A strong unmet need or salient cue; acting is a priority.",
+          "4": "An extreme unmet need or immediate cue; very strong pressure to act."
+        },
+        "probabilities": {
+          "0": 0,
+          "1": 0.01,
+          "2": 0.17,
+          "3": 0.81,
+          "4": 0.01
+        }
+      },
+      "comfort_action": {
+        "type": "choice",
+        "choice": "hide",
+        "confidence": 0.68,
+        "probabilities": {
+          "inspect": 0,
+          "hide": 0.72,
+          "wait": 0.21,
+          "patrol": 0,
+          "play": 0,
+          "eat": 0,
+          "sleep": 0.07,
+          "drink": 0,
+          "connect": 0
+        }
+      },
+      "comfort_pressure": {
+        "type": "score",
+        "score": 1.22,
+        "confidence": 0.36,
+        "legend": {
+          "0": "No unmet need or relevant cue; acting is unnecessary.",
+          "1": "A mild need or cue; acting can comfortably wait.",
+          "2": "A clear need or cue; acting soon would help.",
+          "3": "A strong unmet need or salient cue; acting is a priority.",
+          "4": "An extreme unmet need or immediate cue; very strong pressure to act."
+        },
+        "probabilities": {
+          "0": 0.27,
+          "1": 0.36,
+          "2": 0.26,
+          "3": 0.11,
+          "4": 0
+        }
+      },
+      "care_action": {
+        "type": "choice",
+        "choice": "wait",
+        "confidence": 0.69,
+        "probabilities": {
+          "hide": 0,
+          "inspect": 0,
+          "wait": 0.72,
+          "patrol": 0,
+          "eat": 0,
+          "play": 0,
+          "sleep": 0,
+          "drink": 0,
+          "connect": 0.28
+        }
+      },
+      "care_pressure": {
+        "type": "score",
+        "score": 0.01,
+        "confidence": 0.99,
+        "legend": {
+          "0": "No unmet need or relevant cue; acting is unnecessary.",
+          "1": "A mild need or cue; acting can comfortably wait.",
+          "2": "A clear need or cue; acting soon would help.",
+          "3": "A strong unmet need or salient cue; acting is a priority.",
+          "4": "An extreme unmet need or immediate cue; very strong pressure to act."
+        },
+        "probabilities": {
+          "0": 0.99,
+          "1": 0.01,
+          "2": 0,
+          "3": 0,
+          "4": 0
+        }
+      },
+      "territory_action": {
+        "type": "choice",
+        "choice": "patrol",
+        "confidence": 0.99,
+        "probabilities": {
+          "hide": 0,
+          "inspect": 0,
+          "wait": 0,
+          "patrol": 1,
+          "play": 0,
+          "eat": 0,
+          "sleep": 0,
+          "connect": 0,
+          "drink": 0
+        }
+      },
+      "territory_pressure": {
+        "type": "score",
+        "score": 2.47,
+        "confidence": 0.56,
+        "legend": {
+          "0": "No unmet need or relevant cue; acting is unnecessary.",
+          "1": "A mild need or cue; acting can comfortably wait.",
+          "2": "A clear need or cue; acting soon would help.",
+          "3": "A strong unmet need or salient cue; acting is a priority.",
+          "4": "An extreme unmet need or immediate cue; very strong pressure to act."
+        },
+        "probabilities": {
+          "0": 0,
+          "1": 0.05,
+          "2": 0.43,
+          "3": 0.52,
+          "4": 0
+        }
+      },
+      "habit_action": {
+        "type": "choice",
+        "choice": "wait",
+        "confidence": 0.97,
+        "probabilities": {
+          "hide": 0.02,
+          "inspect": 0,
+          "wait": 0.97,
+          "patrol": 0.01,
+          "eat": 0,
+          "play": 0,
+          "sleep": 0,
+          "drink": 0,
+          "connect": 0
+        }
+      },
+      "habit_pressure": {
+        "type": "score",
+        "score": 0.32,
+        "confidence": 0.73,
+        "legend": {
+          "0": "No unmet need or relevant cue; acting is unnecessary.",
+          "1": "A mild need or cue; acting can comfortably wait.",
+          "2": "A clear need or cue; acting soon would help.",
+          "3": "A strong unmet need or salient cue; acting is a priority.",
+          "4": "An extreme unmet need or immediate cue; very strong pressure to act."
+        },
+        "probabilities": {
+          "0": 0.8,
+          "1": 0.12,
+          "2": 0.05,
+          "3": 0.03,
+          "4": 0
+        }
+      },
+      "single": {
+        "type": "choice",
+        "choice": "hide",
+        "confidence": 0.52,
+        "probabilities": {
+          "hide": 0.57,
+          "inspect": 0.01,
+          "wait": 0.01,
+          "patrol": 0.41,
+          "play": 0,
+          "eat": 0,
+          "sleep": 0,
+          "connect": 0,
+          "drink": 0
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 6650,
+      "output_tokens": 1214
+    }
+  },
+  "latencyMs": 171,
+  "valid": true
+}

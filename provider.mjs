@@ -1,13 +1,21 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { createHash, randomUUID } from 'node:crypto';
 import { performance } from 'node:perf_hooks';
+import { mkdirSync, readFileSync, writeFileSync, renameSync } from 'node:fs';
 import { questionsFor, parseResponse, validateInput } from './core.mjs';
 
 export class JevProvider {
-  constructor({ key, directory, maxRequests=160, maxInputTokens=600000, model='jev-latest' }) {
+  constructor({ key, directory, maxRequests=160, maxInputTokens=600000, model='jev-latest', budgetPath=null }) {
     this.key=key; this.directory=directory; this.maxRequests=maxRequests; this.maxInputTokens=maxInputTokens;
     this.model=model; this.requests=0; this.inputTokens=0; this.outputTokens=0; this.busy=false;
+    this.budgetPath=budgetPath;
+    if(budgetPath){
+      mkdirSync(new URL('./',budgetPath),{recursive:true});
+      try{const b=JSON.parse(readFileSync(budgetPath,'utf8'));if(!Number.isInteger(b.requests)||b.requests<0||!Number.isInteger(b.inputTokens)||b.inputTokens<0)throw new Error('Invalid saved budget');this.requests=b.requests;this.inputTokens=b.inputTokens;this.outputTokens=b.outputTokens??0;}
+      catch(err){if(err.code!=='ENOENT')throw new Error('Stored API budget could not be verified.');}
+    }
   }
+  saveBudget(){if(!this.budgetPath)return;const tmp=new URL(this.budgetPath.href+'.tmp');writeFileSync(tmp,JSON.stringify({requests:this.requests,inputTokens:this.inputTokens,outputTokens:this.outputTokens}),{mode:0o600});renameSync(tmp,this.budgetPath);}
   status() { return { available:Boolean(this.key), requests:this.requests, maxRequests:this.maxRequests, inputTokens:this.inputTokens, maxInputTokens:this.maxInputTokens, busy:this.busy }; }
   async evaluate(observation, weights, { singleOnly=false }={}) {
     if (!this.key) throw new Error('Jev is not connected. Use launch.ps1 to start with the scoped Proton key.');
@@ -18,7 +26,10 @@ export class JevProvider {
     if(singleOnly) payload.questions={single:payload.questions.single};
     const body=JSON.stringify(payload);
     if (Buffer.byteLength(body)>50000) throw new Error('Request exceeds the experiment size limit.');
-    this.busy=true; this.requests++;
+    // Reserve conservatively before dispatch, including failures and abrupt process exits.
+    const reserve=Buffer.byteLength(body)+4096;
+    if(this.inputTokens+reserve>this.maxInputTokens)throw new Error('This release reached its shared Jev budget. Local preview is still available.');
+    this.requests++;this.inputTokens+=reserve;this.saveBudget();this.busy=true;
     const id=new Date().toISOString().replace(/[:.]/g,'-')+'-'+randomUUID().slice(0,8);
     const start=performance.now();
     const receipt={ id, timestamp:new Date().toISOString(), request:payload, requestSha256:createHash('sha256').update(body).digest('hex') };
@@ -36,7 +47,7 @@ export class JevProvider {
       const result=parseResponse(raw,{singleOnly});
       const usage=raw.usage;
       if (!Number.isInteger(usage?.input_tokens) || usage.input_tokens<0 || !Number.isInteger(usage?.output_tokens) || usage.output_tokens<0) throw new Error('Jev did not return valid token usage.');
-      this.inputTokens+=usage.input_tokens; this.outputTokens+=usage.output_tokens;
+      this.inputTokens+=usage.input_tokens-reserve; this.outputTokens+=usage.output_tokens;this.saveBudget();
       receipt.latencyMs=Math.round(performance.now()-start);
       receipt.valid=true;
       return { ...result, receiptId:id, latencyMs:receipt.latencyMs, usage, budget:this.status() };

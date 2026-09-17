@@ -20,5 +20,11 @@ A bright 3D habitat comparing twelve competing drives with a single decision mak
 
 `al-stack.toml` records this project's setup and dependencies. Work from the checkout selected for the task; other branches/worktrees are optional history. Use `al-stack register .` once when starting work here. Local registration does not change the project's lifecycle.
 
+Project commands:
+- install: `npm ci`
+- dev: `npm start`
+- test: `npm test`
+- check: `npm run check`
+
 Edit project guidance outside this managed section. Use `al-stack configure` for its fields and `al-stack check .` for setup checks. Run the actual project checks for behavioral validation.
 <!-- al-stack:project:end -->

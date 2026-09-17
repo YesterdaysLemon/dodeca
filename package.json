@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node server.mjs",
     "test": "node --test tests/*.test.mjs",
-    "pilot": "node pilot.mjs"
+    "pilot": "node pilot.mjs",
+    "check": "node scripts/check.mjs"
   },
   "engines": {
     "node": ">=22"

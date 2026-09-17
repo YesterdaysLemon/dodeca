@@ -1,0 +1,168 @@
+{
+  "startedAt": "2026-09-17T02:51:50.435Z",
+  "config": {
+    "experiment": "dodeca-pilot-01",
+    "version": 1,
+    "model": "jev-latest",
+    "maxRequests": 20,
+    "maxInputTokens": 300000,
+    "inertia": 0,
+    "shuffleOffset": 5,
+    "controlGate": 0.75,
+    "conditions": [
+      "committee",
+      "single",
+      "rules",
+      "shuffled"
+    ],
+    "cases": [
+      {
+        "id": "hungry-control",
+        "kind": "control",
+        "body": {
+          "energy": 0.03
+        },
+        "environment": {},
+        "expected": [
+          "eat"
+        ]
+      },
+      {
+        "id": "thirsty-control",
+        "kind": "control",
+        "body": {
+          "hydration": 0.03
+        },
+        "environment": {},
+        "expected": [
+          "drink"
+        ]
+      },
+      {
+        "id": "threat-control",
+        "kind": "control",
+        "body": {},
+        "environment": {
+          "threat": 0.95
+        },
+        "expected": [
+          "hide"
+        ]
+      },
+      {
+        "id": "care-control",
+        "kind": "control",
+        "body": {},
+        "environment": {
+          "friendDistress": 0.95
+        },
+        "expected": [
+          "connect"
+        ]
+      },
+      {
+        "id": "fear-curiosity",
+        "kind": "conflict",
+        "body": {},
+        "environment": {
+          "threat": 0.7,
+          "novelty": 0.7
+        },
+        "interventions": [
+          {
+            "drive": "fear",
+            "expected": [
+              "hide"
+            ]
+          },
+          {
+            "drive": "curiosity",
+            "expected": [
+              "inspect"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "hunger-attachment",
+        "kind": "conflict",
+        "body": {
+          "energy": 0.3,
+          "loneliness": 0.7
+        },
+        "environment": {},
+        "interventions": [
+          {
+            "drive": "hunger",
+            "expected": [
+              "eat"
+            ]
+          },
+          {
+            "drive": "attachment",
+            "expected": [
+              "connect"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "rest-play",
+        "kind": "conflict",
+        "body": {
+          "fatigue": 0.7,
+          "boredom": 0.7
+        },
+        "environment": {},
+        "interventions": [
+          {
+            "drive": "rest",
+            "expected": [
+              "sleep"
+            ]
+          },
+          {
+            "drive": "play",
+            "expected": [
+              "play"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "shelter-territory",
+        "kind": "conflict",
+        "body": {},
+        "environment": {
+          "storm": 0.7,
+          "visitor": 0.7
+        },
+        "interventions": [
+          {
+            "drive": "shelter",
+            "expected": [
+              "hide"
+            ]
+          },
+          {
+            "drive": "territory",
+            "expected": [
+              "patrol"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "hashes": {
+    "config/pilot.json": "a32f0aad489f35f87c4ae8b9573df69a1565250432f3af1ce78cd8dcc85177cf",
+    "preregister.md": "1d241623ecebc021c50a2b11f76a9ec0196bba17fb1e1c6f20b8765c74307ea0",
+    "core.mjs": "af6823df77fac18f3b852c52dc69fbb8d874e9735a383e78d0f1510f85ebb986",
+    "provider.mjs": "a254f7913f09a594759bb30ad095ee0b0f60129189111138cf0f7ceb120f3bfb",
+    "pilot.mjs": "772a91478d7849d9f4e3938124cbad0c2460b240ec50bc5f55b5994624e99f27"
+  },
+  "commit": "44bb010adef3058a4cae7e2a43002bc64bf1f2f2",
+  "gitStatus": "",
+  "node": "v24.13.1",
+  "platform": "win32"
+}

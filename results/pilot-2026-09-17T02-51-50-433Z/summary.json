@@ -1,0 +1,102 @@
+{
+  "status": "complete",
+  "error": null,
+  "run": "pilot-2026-09-17T02-51-50-433Z",
+  "metrics": {
+    "committee": {
+      "controls": {
+        "correct": 4,
+        "total": 4,
+        "rate": 1,
+        "wilson95": [
+          0.5100999795960008,
+          1
+        ]
+      },
+      "interventions": {
+        "correct": 8,
+        "total": 8,
+        "rate": 1,
+        "wilson95": [
+          0.6755843804891231,
+          1
+        ]
+      },
+      "pairedFlips": 4
+    },
+    "single": {
+      "controls": {
+        "correct": 4,
+        "total": 4,
+        "rate": 1,
+        "wilson95": [
+          0.5100999795960008,
+          1
+        ]
+      },
+      "interventions": {
+        "correct": 7,
+        "total": 8,
+        "rate": 0.875,
+        "wilson95": [
+          0.5291051942301386,
+          0.9775830911367038
+        ]
+      },
+      "pairedFlips": 3
+    },
+    "rules": {
+      "controls": {
+        "correct": 4,
+        "total": 4,
+        "rate": 1,
+        "wilson95": [
+          0.5100999795960008,
+          1
+        ]
+      },
+      "interventions": {
+        "correct": 8,
+        "total": 8,
+        "rate": 1,
+        "wilson95": [
+          0.6755843804891231,
+          1
+        ]
+      },
+      "pairedFlips": 4
+    },
+    "shuffled": {
+      "controls": {
+        "correct": 0,
+        "total": 4,
+        "rate": 0,
+        "wilson95": [
+          0,
+          0.48990002040399916
+        ]
+      },
+      "interventions": {
+        "correct": 0,
+        "total": 8,
+        "rate": 0,
+        "wilson95": [
+          0,
+          0.3244156195108769
+        ]
+      },
+      "pairedFlips": 2
+    }
+  },
+  "models": [
+    "jev-1.13.0"
+  ],
+  "requests": 16,
+  "inputTokens": 106396,
+  "outputTokens": 19424,
+  "estimatedCostUsd": 0.004468632,
+  "medianLatencyMs": 198,
+  "capabilityGate": true,
+  "boundedHypothesis": "supported_on_authored_cases_only",
+  "limitations": "Authored numeric states; no random sample, training, matched compute, semantic OOD, or closed-loop performance comparison."
+}

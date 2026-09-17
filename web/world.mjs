@@ -1,5 +1,6 @@
 import * as THREE from '/vendor/three.module.js';
 import { OrbitControls } from '/vendor/OrbitControls.js';
+import { mergeGeometries } from '/vendor/BufferGeometryUtils.js';
 import { DRIVES } from '/core.mjs';
 
 export const SITES = {
@@ -18,7 +19,8 @@ export function height(x,z){
   for(const [wx,wz] of SITES.water){const px=wx-50,pz=wz-35,d=Math.hypot((x-px)/1.4,z-pz);const t=Math.max(0,1-d/8);h=h*(1-t)+rawHeight(px,pz)*t;}
   return h;
 }
-const mat=(color,extra={})=>new THREE.MeshStandardMaterial({color,roughness:.88,...extra});
+const materials=new Map();
+const mat=(color,extra={})=>{const key=JSON.stringify([color,extra]);if(!materials.has(key))materials.set(key,new THREE.MeshStandardMaterial({color,roughness:.88,...extra}));return materials.get(key);};
 export class Habitat {
   constructor(container){
     this.container=container;this.scene=new THREE.Scene();this.scene.background=new THREE.Color('#79cdf6');this.scene.fog=new THREE.Fog('#b8e3e8',105,240);
@@ -33,7 +35,7 @@ export class Habitat {
     const sun=new THREE.DirectionalLight('#fff0cd',2.7);sun.position.set(-40,70,35);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-80,right:80,top:80,bottom:-80,near:1,far:200});sun.shadow.normalBias=.045;sun.shadow.bias=-.00015;this.scene.add(sun);
     this.clouds=[];this.floaters=[];this.birds=[];this.flowerHeads=[];this.trails=[];
     this.reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-    this.buildLand();this.buildPlants();this.buildResources();this.buildSky();
+    this.buildLand();this.buildPlants();this.buildResources();this.mergeStaticMeshes();this.buildSky();
     this.dodeca=this.creature('dodeca');this.point=this.creature('point');
     this.dodeca.position.set(-6,height(-6,0)+3,0);this.point.position.set(6,height(6,2)+2.4,2);
     this.targets={dodeca:{x:-6,z:0},point:{x:6,z:2}};this.lastTrail={dodeca:null,point:null};
@@ -42,6 +44,16 @@ export class Habitat {
   }
   resize(){const w=this.container.clientWidth,h=this.container.clientHeight;this.renderer.setSize(w,h);this.camera.aspect=w/h;this.camera.updateProjectionMatrix();}
   mesh(geo,material,x,y,z,cast=true){const m=new THREE.Mesh(geo,material);m.position.set(x,y,z);m.castShadow=cast;m.receiveShadow=true;this.scene.add(m);return m;}
+  mergeStaticMeshes(){
+    this.scene.updateMatrixWorld(true);const groups=new Map(),dynamic=new Set(this.floaters.map(x=>x.group));
+    this.scene.traverse(m=>{if(!m.isMesh||m.isInstancedMesh)return;for(let p=m;p;p=p.parent)if(dynamic.has(p))return;
+      const key=m.material.uuid+'|'+m.castShadow+'|'+m.receiveShadow+'|'+Object.keys(m.geometry.attributes).sort().join(',')+'|'+Boolean(m.geometry.index);
+      if(!groups.has(key))groups.set(key,[]);groups.get(key).push(m);
+    });
+    for(const list of groups.values()){if(list.length<2)continue;const copies=list.map(m=>m.geometry.clone().applyMatrix4(m.matrixWorld));const geometry=mergeGeometries(copies);copies.forEach(g=>g.dispose());if(!geometry)continue;
+      const first=list[0],merged=new THREE.Mesh(geometry,first.material);merged.castShadow=first.castShadow;merged.receiveShadow=first.receiveShadow;list.forEach(m=>m.removeFromParent());this.scene.add(merged);
+    }
+  }
   buildLand(){
     const terrain=new THREE.PlaneGeometry(600,600,240,240);terrain.rotateX(-Math.PI/2);const pos=terrain.attributes.position;const colors=[];
     const c=new THREE.Color();for(let i=0;i<pos.count;i++){const x=pos.getX(i),z=pos.getZ(i);pos.setY(i,height(x,z));const v=.5+.5*Math.sin(x*.2)*Math.cos(z*.19);c.setHSL(.235+v*.018,.52+v*.1,.255+v*.045);colors.push(c.r,c.g,c.b);}terrain.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));terrain.computeVertexNormals();this.mesh(terrain,mat('#ffffff',{vertexColors:true}),0,0,0,false);
